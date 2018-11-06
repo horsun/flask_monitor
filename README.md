@@ -11,4 +11,6 @@
       - urls.py
       - views.py
   - utils/          # app util diretory
+  - static/         # statics diretory
+  - templates/      # templates diretory
 ```
