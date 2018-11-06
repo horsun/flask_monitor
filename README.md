@@ -13,4 +13,6 @@
   - utils/          # app util diretory
   - static/         # statics diretory
   - templates/      # templates diretory
+  - test/
+    - test_db.py    # test Flask-SQLAlchemy module
 ```
