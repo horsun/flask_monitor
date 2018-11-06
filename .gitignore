@@ -105,7 +105,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-/brook-web.py
+/flask_ex.py
 /.idea/markdown-navigator/
 /.idea/misc.xml
 /.idea/modules.xml
@@ -115,3 +115,4 @@ venv.bak/
 /.idea/encodings.xml
 将删除 .idea/
 将删除 brook-web.py
+将删除 .idea/markdown-navigator.xml
