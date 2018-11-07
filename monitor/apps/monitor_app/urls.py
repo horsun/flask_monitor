@@ -1,4 +1,5 @@
-from monitor import api
-from monitor.apps.monitor_app.views import World
+from monitor import api, socketio
+from monitor.apps.monitor_app.views import World, MyNamespace
 
-api.add_resource(World, '/')
+api.add_resource(World, '/hello')
+socketio.on_namespace(MyNamespace('/test'))
