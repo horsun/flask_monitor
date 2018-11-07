@@ -16,30 +16,41 @@ class World(Resource):
         return jsonify({"hell": 'world'})
 
 
+from datetime import datetime
+
+
 def background_thread():
     """Example of how to send server generated events to clients."""
     count = 0
     while True:
-        socketio.sleep(10)
+        socketio.sleep(60)
         count += 1
         socketio.emit('my_response',
-                      {'data': 'Server generated event', 'count': count},
+                      {'data': str(datetime.now()) + '-----' + 'hello', 'count': count},
                       namespace='/test')
 
 
 class MyNamespace(Namespace):
     def on_my_event(self, message):
+        """
+        get client send msg
+        :param message:
+        :return:
+        """
+        print(message)
         session['receive_count'] = session.get('receive_count', 0) + 1
         emit('my_response',
              {'data': message['data'], 'count': session['receive_count']})
 
     def on_my_broadcast_event(self, message):
+        print(message)
         session['receive_count'] = session.get('receive_count', 0) + 1
         emit('my_response',
              {'data': message['data'], 'count': session['receive_count']},
              broadcast=True)
 
     def on_join(self, message):
+        print(message)
         join_room(message['room'])
         session['receive_count'] = session.get('receive_count', 0) + 1
         emit('my_response',
@@ -47,6 +58,7 @@ class MyNamespace(Namespace):
               'count': session['receive_count']})
 
     def on_leave(self, message):
+        print(message)
         leave_room(message['room'])
         session['receive_count'] = session.get('receive_count', 0) + 1
         emit('my_response',
@@ -54,6 +66,7 @@ class MyNamespace(Namespace):
               'count': session['receive_count']})
 
     def on_close_room(self, message):
+        print(message)
         session['receive_count'] = session.get('receive_count', 0) + 1
         emit('my_response', {'data': 'Room ' + message['room'] + ' is closing.',
                              'count': session['receive_count']},
@@ -61,6 +74,7 @@ class MyNamespace(Namespace):
         close_room(message['room'])
 
     def on_my_room_event(self, message):
+        print(message)
         session['receive_count'] = session.get('receive_count', 0) + 1
         emit('my_response',
              {'data': message['data'], 'count': session['receive_count']},
@@ -76,6 +90,10 @@ class MyNamespace(Namespace):
         emit('my_pong')
 
     def on_connect(self):
+        """
+        when client connect send one msg
+        :return:
+        """
         global thread
         with thread_lock:
             if thread is None:

@@ -22,7 +22,7 @@
             // The callback function is invoked when a connection with the
             // server is established.
             socket.on('connect', function () {
-                socket.emit('my_event', {data: 'I\'m connected!'});
+                socket.emit('my_event', {data: '你已经连接了，小老弟 //前端发送一个给后端 后端 send msg 到界面'});
             });
 
             // Event handler for server sent data.
@@ -59,6 +59,7 @@
             // Handlers for the different forms in the page.
             // These accept data from the user and send it to the server in a
             // variety of ways
+            {#这里发送信息给 myevent#}
             $('form#emit').submit(function (event) {
                 socket.emit('my_event', {data: $('#emit_data').val()});
                 return false;
