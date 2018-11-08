@@ -22,7 +22,7 @@
             // The callback function is invoked when a connection with the
             // server is established.
             socket.on('connect', function () {
-                socket.emit('my_event', {data: '你已经连接了，小老弟 //前端发送一个给后端 后端 send msg 到界面'});
+                socket.emit('my_event', {data: 'python'});
             });
 
             // Event handler for server sent data.

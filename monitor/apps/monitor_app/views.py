@@ -1,3 +1,4 @@
+import os
 from threading import Lock
 
 from flask import jsonify, render_template
@@ -38,9 +39,14 @@ class MyNamespace(Namespace):
         :return:
         """
         print(message)
+        cmd = 'ps -ef|grep {0}'.format(message['data'])
+        print(cmd)
+        return_data = os.popen(cmd).readlines()
+        print(return_data)
         session['receive_count'] = session.get('receive_count', 0) + 1
-        emit('my_response',
-             {'data': message['data'], 'count': session['receive_count']})
+        for item in return_data:
+            emit('my_response',
+                 {'data': item.replace(' ', '|'), 'count': session['receive_count']})
 
     def on_my_broadcast_event(self, message):
         print(message)
