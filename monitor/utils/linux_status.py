@@ -1,3 +1,4 @@
+import datetime
 from pprint import pprint
 
 import psutil
@@ -32,12 +33,19 @@ def disk_io():
 
 
 def memory():
-    data = psutil.virtual_memory()
+    base_data = psutil.virtual_memory()
+    print(type(base_data))
+    data = {}
+    data['total'] = base_data.total
+    data['available'] = base_data.available
+    data['percent'] = base_data.percent
+    data['used'] = base_data.used
+    data['time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%m')
     return data
 
 
 if __name__ == '__main__':
     pprint(net_stat())
-    print(top())
-    print(disk_io())
+    # print(top())
+    # print(disk_io())
     print(memory())
