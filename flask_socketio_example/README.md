@@ -1,4 +1,4 @@
-# Flask-SocketIO example
+# Flask-SocketIO usage example
 ---
 `## websocket in flask `
 
