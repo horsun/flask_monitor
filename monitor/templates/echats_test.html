@@ -17,14 +17,13 @@
     var one_data = '';
 
 
-
     function getMemoryBySocket() {
         namespace = '/test';
         var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
         socket.on('my_response', function (msg) {
             my_str = JSON.parse(msg.data);
 
-            one_data = {"name": my_str.time, "value": [my_str.time, my_str.percent]}
+            one_data = {"name": '内存', "value": [my_str.time, my_str.percent]}
         });
         return one_data;
     }
@@ -66,7 +65,7 @@
 
     option = {
         title: {
-            text: '动态数据 + 时间坐标轴'
+            text: '内存占用情况'
         },
         tooltip: {
             trigger: 'axis',
@@ -81,6 +80,9 @@
             },
         },
         yAxis: {
+            min: 0,
+            max: 100,
+            interval: 15,//刻度
             type: 'value',
             boundaryGap: [0, '100%'],
             splitLine: {
@@ -89,7 +91,7 @@
 
         },
         series: [{
-            name: '模拟数据',
+            name: '内存占用',
             type: 'line',
             showSymbol: false,
             hoverAnimation: false,
