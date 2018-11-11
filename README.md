@@ -33,5 +33,5 @@
 ![memory](/monitor/statics/memory.png)
 > local_server_memory_image (O_O)
 
-![memory](/monitor/statics/local_pc_memory)
+![memory](/monitor/statics/local_pc_memory.png)
 
