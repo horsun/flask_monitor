@@ -40,14 +40,13 @@ class Memory(Namespace):
         disconnect()
 
 
+#
+# @app.route('/')
+# def index():
+#     return render_template('memory.html', async_mode=socketio.async_mode)
 
 
 @app.route('/')
-def index():
-    return render_template('memory.html', async_mode=socketio.async_mode)
-
-
-@app.route('/m')
 def mem():
     return render_template('echats_test.html')
 
