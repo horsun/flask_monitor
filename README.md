@@ -26,8 +26,12 @@
 4.export FLASK_APP=monitor
 5.flask run --host 127.0.0.1 --port 5001
 ```
-
+---
 
 > 例图(服务器太稳定了@_@)
 
 ![memory](/monitor/statics/memory.png)
+> local_server_memory_image (O_O)
+
+![memory](/monitor/statics/local_pc_memory)
+
