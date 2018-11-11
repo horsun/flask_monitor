@@ -26,3 +26,8 @@
 4.export FLASK_APP=monitor
 5.flask run --host 127.0.0.1 --port 5001
 ```
+
+
+> 例图
+
+![memory](/monitor/statics/memory.png)
