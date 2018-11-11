@@ -2,7 +2,7 @@ from threading import Lock
 
 from flask import jsonify, render_template
 from flask_restful import Resource
-from flask_socketio import emit, Namespace
+from flask_socketio import emit, Namespace, disconnect
 import json
 from monitor import socketio, app
 from monitor.utils.linux_status import memory
@@ -34,10 +34,22 @@ class Memory(Namespace):
                     target=background_thread)
         emit('my_response', {'data': json.dumps(memory()), 'count': 0})
 
+    def on_disconnect_request(self):
+        emit('my_response')
+        print('socket _disconnect')
+        disconnect()
+
+
+
 
 @app.route('/')
-def memory_page():
+def index():
     return render_template('memory.html', async_mode=socketio.async_mode)
+
+
+@app.route('/m')
+def mem():
+    return render_template('echats_test.html')
 
 
 class World(Resource):

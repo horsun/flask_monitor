@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="{{ url_for('static', filename='echarts.js') }}"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+</head>
+<body>
+<p>webSocket 延迟: <b><span id="ping-pong"></span> ms</b></p>
+
+<div id='main' style="width: 600px;height: 400px;">
+
+</div>
+<script type="text/javascript">
+    var one_data = '';
+
+
+
+    function getMemoryBySocket() {
+        namespace = '/test';
+        var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+        socket.on('my_response', function (msg) {
+            my_str = JSON.parse(msg.data);
+
+            one_data = {"name": my_str.time, "value": [my_str.time, my_str.percent]}
+        });
+        return one_data;
+    }
+
+    $(document).ready(function () {
+        namespace = '/test';
+        var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+
+        var ping_pong_times = [];
+        var start_time;
+        window.setInterval(function () {
+            start_time = (new Date).getTime();
+            socket.emit('my_ping');
+        }, 1000);
+
+        socket.on('my_pong', function () {
+            var latency = (new Date).getTime() - start_time;
+            ping_pong_times.push(latency);
+            ping_pong_times = ping_pong_times.slice(-30); // keep last 30 samples
+            var sum = 0;
+            for (var i = 0; i < ping_pong_times.length; i++)
+                sum += ping_pong_times[i];
+            $('#ping-pong').text(Math.round(10 * sum / ping_pong_times.length) / 10);
+        });
+
+
+    });
+</script>
+<script>
+
+    var data = [];
+
+    var myChart = echarts.init(document.getElementById('main'));
+
+    for (var i = 0; i < 100; i++) {
+        // 相当于固定显示 data 的长度
+        data.push(getMemoryBySocket());
+    }
+
+    option = {
+        title: {
+            text: '动态数据 + 时间坐标轴'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                animation: false
+            }
+        },
+        xAxis: {
+            type: 'time',
+            splitLine: {
+                show: false
+            },
+        },
+        yAxis: {
+            type: 'value',
+            boundaryGap: [0, '100%'],
+            splitLine: {
+                show: false
+            },
+
+        },
+        series: [{
+            name: '模拟数据',
+            type: 'line',
+            showSymbol: false,
+            hoverAnimation: false,
+            data: data
+        }],
+    };
+    setInterval(function () {
+        // 填充 data 的长度
+        data.shift();
+        data.push(getMemoryBySocket());
+
+
+        myChart.setOption({
+            series: [{
+                data: data
+            }],
+
+        });
+    }, 1000);
+
+    myChart.setOption(option)
+
+</script>
+</body>
+</html>

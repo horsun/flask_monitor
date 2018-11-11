@@ -34,13 +34,12 @@ def disk_io():
 
 def memory():
     base_data = psutil.virtual_memory()
-    print(type(base_data))
     data = {}
     data['total'] = base_data.total
     data['available'] = base_data.available
     data['percent'] = base_data.percent
     data['used'] = base_data.used
-    data['time'] = datetime.datetime.now().strftime('%Y/%m/%d %H:%m')
+    data['time'] = str(datetime.datetime.now())
     return data
 
 
