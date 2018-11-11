@@ -28,6 +28,6 @@
 ```
 
 
-> 例图
+> 例图(服务器太稳定了@_@)
 
 ![memory](/monitor/statics/memory.png)
