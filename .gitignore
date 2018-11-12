@@ -116,3 +116,4 @@ venv.bak/
 将删除 .idea/
 将删除 brook-web.py
 将删除 .idea/markdown-navigator.xml
+/flask_socketio_example/flask_session/*
