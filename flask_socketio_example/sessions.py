@@ -33,7 +33,7 @@ def session_access():
         return jsonify({
             'session': session.get('value', ''),
             'user': current_user.id
-                if current_user.is_authenticated else 'anonymous'
+            if current_user.is_authenticated else 'anonymous'
         })
     data = request.get_json()
     if 'session' in data:
@@ -51,7 +51,7 @@ def get_session():
     emit('refresh-session', {
         'session': session.get('value', ''),
         'user': current_user.id
-            if current_user.is_authenticated else 'anonymous'
+        if current_user.is_authenticated else 'anonymous'
     })
 
 
@@ -67,4 +67,4 @@ def set_session(data):
 
 
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, port=5001)
