@@ -21,7 +21,7 @@
 
 ```
 1.git clone
-2.cd monitor/
+2.cd flask_monitor/
 3.pip install -r requirements.txt
 4.export FLASK_APP=monitor
 5.flask run --host 127.0.0.1 --port 5001
