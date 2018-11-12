@@ -63,7 +63,6 @@
         // 相当于固定显示 data 的长度  如果是100 就相当于 只记录了 100秒内的 内存波动记录
         data.push(getMemoryBySocket());
     }
-
     option = {
         title: {
             text: '内存占用情况'
@@ -72,6 +71,9 @@
             trigger: 'axis',
             axisPointer: {
                 animation: false
+            },
+            formatter: function (my_data) {
+                return my_data[0]['value'][0].toTimeString().split(' ')[0] + " 占用:" + my_data[0]["value"][1] + "%"
             }
         },
         xAxis: {
@@ -85,6 +87,7 @@
             max: 100,
             interval: 15,//刻度
             type: 'value',
+            axisLabel: {formatter: '{value} %'},
             boundaryGap: [0, '100%'],
             splitLine: {
                 show: false
