@@ -10,7 +10,7 @@
 <body>
 <p>webSocket 延迟: <b><span id="ping-pong"></span> ms</b></p>
 
-<div id='main' style="height: 400px;">
+<div id='main' style="height: 400px;width: 1000px">
 
 </div>
 <script type="text/javascript">
@@ -59,7 +59,7 @@
 
     var data = [];
     var myChart = echarts.init(document.getElementById('main'));
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < 3600; i++) {
         // 相当于固定显示 data 的长度  如果是100 就相当于 只记录了 100秒内的 内存波动记录
         data.push(getMemoryBySocket());
     }
