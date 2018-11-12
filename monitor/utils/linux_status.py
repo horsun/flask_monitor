@@ -35,16 +35,21 @@ def disk_io():
 def memory():
     base_data = psutil.virtual_memory()
     data = {}
-    data['total'] = base_data.total
-    data['available'] = base_data.available
+    data['total'] = base_data.total / _ONE_GIGABYTES_
+    data['available'] = base_data.available / _ONE_GIGABYTES_
     data['percent'] = base_data.percent
-    data['used'] = base_data.used
-    data['time'] = str(datetime.datetime.now())
+    data['used'] = base_data.used / _ONE_GIGABYTES_
+    return data
+
+
+def cpu_percent():
+    data = psutil.cpu_percent(interval=1, percpu=True)
     return data
 
 
 if __name__ == '__main__':
-    pprint(net_stat())
+    # pprint(net_stat())
     # print(top())
     # print(disk_io())
-    print(memory())
+    # print(memory())
+    print(cpu_percent())

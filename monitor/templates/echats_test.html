@@ -21,9 +21,12 @@
         namespace = '/test';
         var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
         socket.on('my_response', function (msg) {
-            my_str = JSON.parse(msg.data);
-
-            one_data = {"name": '内存', "value": [my_str.time, my_str.percent]}
+            my_str = JSON.parse(msg['memory']);
+            var myDate = new Date();
+            one_data = {
+                "name": '内存',
+                "value": [myDate, my_str['percent']]
+            }
         });
         return one_data;
     }
@@ -55,9 +58,7 @@
 <script>
 
     var data = [];
-
     var myChart = echarts.init(document.getElementById('main'));
-
     for (var i = 0; i < 100; i++) {
         // 相当于固定显示 data 的长度  如果是100 就相当于 只记录了 100秒内的 内存波动记录
         data.push(getMemoryBySocket());

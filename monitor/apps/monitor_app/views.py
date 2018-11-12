@@ -18,7 +18,7 @@ def background_thread():
         socketio.sleep(1)
         count += 1
         socketio.emit('my_response',
-                      {'data': json.dumps(memory()), 'count': count},
+                      {'memory': json.dumps(memory())},
                       namespace='/test')
 
 
@@ -32,7 +32,7 @@ class Memory(Namespace):
             if thread is None:
                 thread = socketio.start_background_task(
                     target=background_thread)
-        emit('my_response', {'data': json.dumps(memory()), 'count': 0})
+        emit('my_response', {'memory': json.dumps(memory())})
 
     def on_disconnect_request(self):
         emit('my_response')
