@@ -28,6 +28,9 @@
 ```
 ---
 
+> bug
+1.时间不对
+---
 > 例图(服务器太稳定了@_@)
 
 ![memory](/monitor/statics/memory.png)
