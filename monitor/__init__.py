@@ -7,18 +7,19 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, static_folder='./statics/', static_url_path='/static/')
 app.config['SECRET_KEY'] = 'secret!'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:123456@127.0.0.1/monitor'
-app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# TODO 注释 暂时不需要用到models
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:123456@127.0.0.1/monitor'
+# app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # init others ,like url、database
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 api = Api(app)
 socketio = SocketIO(app)
-import monitor.apps.monitor_app.models
+# import monitor.apps.monitor_app.models
 import monitor.apps.monitor_app.views
 import monitor.apps.monitor_app.urls
 
-db.create_all()
+# db.create_all()
 if __name__ == '__main__':
     socketio.run(app, debug=True)
