@@ -43,7 +43,7 @@ def memory():
 
 
 def cpu_percent():
-    data = psutil.cpu_percent(interval=1, percpu=True)
+    data = psutil.cpu_percent(interval=0, percpu=True)
     return data
 
 

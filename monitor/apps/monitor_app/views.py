@@ -5,7 +5,7 @@ from flask_restful import Resource
 from flask_socketio import emit, Namespace, disconnect
 import json
 from monitor import socketio, app
-from monitor.utils.linux_status import memory
+from monitor.utils.linux_status import memory, cpu_percent
 
 thread = None
 thread_lock = Lock()
@@ -18,7 +18,7 @@ def background_thread():
         socketio.sleep(1)
         count += 1
         socketio.emit('my_response',
-                      {'memory': json.dumps(memory())},
+                      {'memory': json.dumps(memory()), "cpu": cpu_percent()},
                       namespace='/test')
 
 

@@ -14,8 +14,8 @@
 
 </div>
 <script type="text/javascript">
-    var one_data = '';
-
+    var one_data = {};
+    var tete = '';
 
     function getMemoryBySocket() {
         namespace = '/test';
@@ -65,9 +65,26 @@
     }
     option = {
         title: {
-            text: '内存占用情况'
+            text: '内存占用情况',
+            subtext: 'monitor',
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            }
         },
         tooltip: {
+
             trigger: 'axis',
             axisPointer: {
                 animation: false
@@ -112,6 +129,7 @@
             series: [{
                 data: data
             }],
+
 
         });
     }, 1000);
